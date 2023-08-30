@@ -1,9 +1,8 @@
-﻿using Dalamud.Utility;
-using Dalamud.Interface.ImGuiFileDialog;
+﻿using Dalamud.Interface.ImGuiFileDialog;
+using Dalamud.Utility;
 using ImGuiNET;
 using Lumina.Excel.GeneratedSheets;
 using MakePlacePlugin.Objects;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -307,22 +306,13 @@ namespace MakePlacePlugin.Gui
 
             if (ImGui.Button($"Get {inOut} Layout"))
             {
-                if (IsDecorMode())
+                try
                 {
-                    try
-                    {
-                        Plugin.LoadLayout();
-                    }
-                    catch (Exception e)
-                    {
-                        LogError($"Error: {e.Message}", e.StackTrace);
-                    }
+                    Plugin.LoadLayout();
                 }
-                else
+                catch (Exception e)
                 {
-                    LogError("Unable to load layouts outside of Layout mode");
-                    LogError("(Housing -> Indoor/Outdoor Furnishings)");
-
+                    LogError($"Error: {e.Message}", e.StackTrace);
                 }
             }
             ImGui.SameLine();
